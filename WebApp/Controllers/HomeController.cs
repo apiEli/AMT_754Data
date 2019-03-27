@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,11 +14,32 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [AllowAnonymous]
+        public ActionResult DownloadTemplate()
         {
-            ViewBag.Message = "Your application description page.";
+            try
+            {
+                
+                    string FilePath = Server.MapPath("~/754Template/");
+                    DirectoryInfo dr = new DirectoryInfo(FilePath);
+                    if (!dr.Exists)
+                    {
+                        dr.Create();
+                    }
+                    string FileName = "TemplateFileFrom754DataToUpdateAMT.xls";
 
-            return View();
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath + FileName);
+
+                    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, FileName);
+                 
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View();
+
+            }
+
         }
 
         public ActionResult Contact()
