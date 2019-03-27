@@ -11,7 +11,7 @@
             </div>
             <div class="panel-body">
 
-                @using (Html.BeginForm("Index", "CustomerXRef", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="row" style="padding:5px">
 
@@ -44,19 +44,9 @@
 
                                     @gridview.GetHtml(tableStyle: "webGrid grid", headerStyle: "header", alternatingRowStyle: "altColor",
                                    columns: gridview.Columns(
-                                       //gridview.Column("Company_Code", "Company"),
-                                       //gridview.Column("Division_Code", "Division"),
-                                       //gridview.Column("Item_Number","Item Number"),
-                                       //gridview.Column("Color_Code", "Color Code"),
-                                       //gridview.Column("Size_Description", "Size"),
-                                       //gridview.Column("UPC", "UPC")
-                                       gridview.Column("Company", "Company"),
-                                       gridview.Column("Division", "Division"),
-                                       gridview.Column("Style", "Style"),
-                                       gridview.Column("PackCode", "Color Code"),
-                                       gridview.Column("Customer", "Customer"),
-                                       gridview.Column("UPC", "UPC"),
-                                       gridview.Column("Message", "Message")
+                                       gridview.Column("CompanyCode", "Company"),
+                                       gridview.Column("DivisionCode", "Division")
+                                        
 
                                        )
                                          )
