@@ -1,31 +1,292 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Upload AMT set 754 data  <button onclick="getTemplate();" class="btn btn-success pull-right">Download Template</button></h2>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("Index", "CustomerXRef", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row" style="padding:5px">
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Upload file</label>
+                                <input type="file" id="fiJPageInfo" name="fiJPageInfo" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <input type="submit" data="form" class="btn btn-sm btn-success" value="Upload & Process" />
+                        </div>
+                    </div>
+
+                }
+                <div class="row">
+                    <div class="col-lg-10">@Html.Raw(ViewBag.Message) </div>
+                </div>
+                <hr />
+                <div style="height:400px; overflow-y:scroll; padding:10px">
+                    <div class="row success-grid">
+                        <div class="panel-info "><h4>Inserted records</h4></div>
+                        <div id="grid">
+                            @{    if (ViewBag.ListInserted != null)
+                                {
+
+                                    var gridview = new WebGrid(source: ViewBag.ListInserted, rowsPerPage: 100);
+
+
+                                    @gridview.GetHtml(tableStyle: "webGrid grid", headerStyle: "header", alternatingRowStyle: "altColor",
+                                   columns: gridview.Columns(
+                                       //gridview.Column("Company_Code", "Company"),
+                                       //gridview.Column("Division_Code", "Division"),
+                                       //gridview.Column("Item_Number","Item Number"),
+                                       //gridview.Column("Color_Code", "Color Code"),
+                                       //gridview.Column("Size_Description", "Size"),
+                                       //gridview.Column("UPC", "UPC")
+                                       gridview.Column("Company", "Company"),
+                                       gridview.Column("Division", "Division"),
+                                       gridview.Column("Style", "Style"),
+                                       gridview.Column("PackCode", "Color Code"),
+                                       gridview.Column("Customer", "Customer"),
+                                       gridview.Column("UPC", "UPC"),
+                                       gridview.Column("Message", "Message")
+
+                                       )
+                                         )
+                                }
+                            }
+                        </div>
+
+                    </div>
+                    <div class="row error-grid" style="display:none">
+                        <div class="panel-info"><h4>Error records</h4></div>
+                        <div id="grid">
+                            @{ if (ViewBag.ListError != null)
+
+                                {
+                                    var gridviewError = new WebGrid(source: ViewBag.ListError, rowsPerPage: 100);
+
+
+                                    @gridviewError.GetHtml(tableStyle: "webGrid grid", headerStyle: "header", alternatingRowStyle: "altColor",
+                                    columns: gridviewError.Columns(
+                                       gridviewError.Column("Company", "Company"),
+                                       gridviewError.Column("Division", "Division"),
+                                       gridviewError.Column("Style", "Style"),
+                                       gridviewError.Column("PackCode", "Color Code"),
+                                       gridviewError.Column("Customer", "Customer"),
+                                       gridviewError.Column("UPC", "UPC"),
+                                       gridviewError.Column("Message", "Message", null, "alert-error")
+
+
+                                       ))
+                                }
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button onclick="loadError()" class="btn btn-danger btn-sm error-btn">View Error</button>
+                <button onclick="loadError()" class="btn btn-success btn-sm success-btn" style="display:none">View Inserted</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+<script>
+
+        function getTemplate() {
+
+            var url = '@Url.Action("DownloadTemplate", "CustomerXRef")';
+
+            window.location = url;
+        }
+        function loadError() {
+            $('.success-grid').toggle();
+            $('.error-grid').toggle();
+            $('.success-btn').toggle();
+            $('.error-btn').toggle();
+        }
+</script>
+<style>
+    h4 {
+        text-align: left;
+    }
+
+    .link.btn {
+        padding: 2px 2px;
+        border: 1px solid #739fc5;
+        min-width: 60px;
+        background: #b9e7f5;
+        display: inline-block;
+        text-decoration: none;
+        min-height: 15px;
+        cursor: pointer;
+    }
+
+    .webGrid tfoot tr:last-child td, .webGrid tfoot tr:last-child td a {
+        padding: 2px 7px;
+        border: 1px solid #eee;
+        font-size: 22px !important;
+        color: #fff;
+    }
+
+    .webGrid {
+        /* margin: 4px; */
+        border: 1px solid;
+        background-color: #fff;
+        width: 100%;
+    }
+
+        tr.header th, .webGrid th, tfoot td {
+            padding: 6px !important;
+            background: #888;
+            color: #fff !important;
+            text-transform: uppercase;
+            font: 12px/1.4 Helvetica, Arial, sans-serif !important;
+        }
+
+    tfoot a {
+        padding: 2px;
+        border: 1px solid #eee;
+    }
+
+    tfoot td {
+        font-size: 15px;
+    }
+
+    .webGrid tr:hover {
+        background: #81cfdc;
+    }
+
+        .webGrid tr:hover > td span {
+            color: #fff;
+        }
+
+    .edit {
+        display: none;
+        cursor: pointer;
+    }
+
+    .webGrid tr td, .webGrid tr td a {
+        border-style: solid;
+        border-bottom: 1px solid #e3e3e3;
+        border-width: 0 0 1px;
+        font: 8px Helvetica, Arial, sans-serif !important;
+        padding-left: 5px;
+    }
+
+    .webGrid tr {
+        height: 16px;
+        height: calc(1.42857143em + 8px);
+    }
+
+    .header {
+        background-color: #fff;
+    }
+
+        .header a {
+            color: #fff;
+        }
+
+    .altColor {
+        background-color: #f9f6f6;
+    }
+
+    .button {
+        max-width: 250px;
+    }
+
+    span {
+        padding-left: 4px;
+    }
+
+
+
+    .link {
+        text-decoration: underline;
+        color: #0094ff;
+        cursor: pointer;
+    }
+
+    .webGrid tr.header th, .grid td {
+        padding: 0px;
+        padding-left: 1px;
+        margin: 0px;
+    }
+
+    .pop-loader {
+        position: fixed;
+        bottom: 45%;
+        right: 46%;
+        padding: 10px 20px;
+        background: #81cfdc;
+        color: #000;
+        border: 6px solid #f3f3f3; /* Light grey */
+        border-top: 6px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+
+
+    #overlay {
+        visibility: hidden;
+        position: absolute;
+        left: 0px;
+        padding: 20px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        z-index: 1000;
+        background: #1d191qw9;
+    }
+
+        #overlay div span {
+            display: inline-block;
+            padding: 4px;
+            color: #0094ff;
+        }
+
+        #overlay div.pop-tbl {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #fff6f6;
+            border: 1px solid #888;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 1px 3px 12px;
+        }
+
+    .scroll {
+        overflow-y: scroll;
+        height: 300px;
+        /* padding: 5px; */
+    }
+
+    #overlay div li {
+        list-style: none;
+        text-align: left !important;
+    }
+</style>

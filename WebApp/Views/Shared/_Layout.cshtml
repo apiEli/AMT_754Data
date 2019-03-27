@@ -1,44 +1,147 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload AMT set 754 data</title>
+    <!-- Bootstrap -->
 
+    <link href="~/theme/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/theme/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/theme/nprogress/nprogress.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="~/theme/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <!-- Custom Theme Style -->
+    <link href="~/theme/css/custom.min.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body class="nav-sm">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="/" class="site_title"><i class="fa fa-dollar"></i> <span>Royalty Payout</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu">
+
+                                @*<li>
+                                        <a href="/CustomerXRef/"><i class="fa fa-adjust"></i>Customer XRef</a>
+
+                                    </li>*@
+                                <li>
+                                    <a href="/Home"><i class="fa fa-home"></i>Home</a>
+
+                                </li>
+                                <li>
+                                    <a href="/account/login"><i class="fa fa-plug"></i>Log Out</a>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <!-- top navigation -->
+            @*<div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+
+                            </div>
+                            <div class="nav pull-left">
+                                <h2 style="padding: 8px 15px 0;">@ViewBag.Title</h2>
+                            </div>                        <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        User Name
+                                        <span class="fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        <li><a href="javascript:;"> Profile</a></li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="badge bg-red pull-right">50%</span>
+                                                <span>Settings</span>
+                                            </a>
+                                        </li>
+                                        <li><a href="javascript:;">Help</a></li>
+                                        <li><a href="/Account/LogOff"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>*@
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="dashboard_graph x_panel">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    @@ Lookup
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <!-- jQuery -->
+    <script src="~/theme/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/theme/bootstrap/dist/js/bootstrap.min.js"></script>u
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+
+    <script src="~/theme/jquery/custom.min.js"></script>
 </body>
 </html>
